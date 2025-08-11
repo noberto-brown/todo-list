@@ -1,5 +1,7 @@
+require("dotenv").config();
 const express = require("express");
-const redis = require("redis");
+// const redis = require("redis");
+const Redis = require("@upstash/redis").Redis;
 const date = require(__dirname + "/dates.js");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
@@ -12,15 +14,16 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 
-const client = redis.createClient({ url: "redis://@localhost:6379/1" });
-let day = date.getDay();
-client.connect();
-client.on("connect", function () {
-  console.log("Connected!");
+// const client = redis.createClient({ url: "redis://@localhost:6379/1" });
+const client = new Redis({
+  url: process.env.UPSTASH_REDIS_URL,
+  token: process.env.UPSTASH_REDIS_TOKEN,
 });
 
-app.get("/", async (req, res) => {
-  const result = await client.lRange("todoList", 0, -1);
+let day = date.getDay();
+
+app.get("/", async (_, res) => {
+  const result = await client.lrange("todoList", 0, -1);
 
   if (result.length === 0) {
     res.render("list", { title: day, newListItems: Array.apply(null) });
@@ -34,7 +37,7 @@ app.get("/:customListName", async (req, res) => {
   const itExists = await client.exists(customListName);
 
   if (itExists) {
-    const List = await client.lRange(customListName, 0, -1);
+    const List = await client.lrange(customListName, 0, -1);
     res.render("list", { title: customListName, newListItems: List });
   } else {
     res.render("list", {
@@ -48,10 +51,10 @@ app.post("/del", async (req, res) => {
   const listName = req.body.listName;
 
   if (listName === day) {
-    client.lRem("todoList", 0, req.body.box);
+    client.lrem("todoList", 0, req.body.box);
     res.redirect("/");
   } else {
-    client.lRem(listName, 0, req.body.box);
+    client.lrem(listName, 0, req.body.box);
     res.redirect("/" + listName);
   }
 });
@@ -60,16 +63,14 @@ app.post("/", (req, res) => {
   if (req.body.button === day) {
     const item = req.body.newItem;
 
-    client.rPush("todoList", item);
+    client.rpush("todoList", item);
 
     res.redirect("/");
   } else {
     const item = req.body.newItem;
 
-    client.rPush(req.body.button, item);
+    client.rpush(req.body.button, item);
 
     res.redirect("/" + req.body.button);
   }
 });
-
-// client.quit();
