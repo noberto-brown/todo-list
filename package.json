@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "node --watch-path=./ app.js"
   },
   "author": "Nobert",
   "license": "ISC",
@@ -15,7 +16,6 @@
     "ejs": "^6.0.1",
     "express": "^5.2.1",
     "lodash": "^4.17.21",
-    "mime-types": "^3.0.0",
-    "nodemon": "^3.1.14"
+    "mime-types": "^3.0.0"
   }
 }
