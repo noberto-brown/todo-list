@@ -32,6 +32,7 @@ app.get("/", async (_, res) => {
 });
 
 app.get("/:customListName", async (req, res) => {
+  return res.render("list", { title: req.params.customListName, newListItems: [] });
   const customListName = _.capitalize(req.params.customListName);
   const itExists = await client.exists(customListName);
 
