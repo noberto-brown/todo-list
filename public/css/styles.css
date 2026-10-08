@@ -14,8 +14,9 @@
 html {
   min-height: 100%;
   background-color: #e4e9fd;
-  background-image: linear-gradient(135deg, #e4e9fd 0%, #a683e3 80%);
-  font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  /* background-image: linear-gradient(135deg, #e4e9fd 0%, #a683e3 80%); */
+  font-family: "helvetica neue", sans-serif;
+  background-image: url("https://transparenttextures.com/patterns/robots.png");
 }
 
 body {
@@ -421,7 +422,6 @@ input[type="text"]:focus {
 
 footer {
   padding-top: 22px;
-  color: rgba(0, 0, 0, 0.5);
   text-align: center;
   font-size: 0.85rem;
 }

@@ -62,6 +62,10 @@ async function getListPageData(listKey, title, errorMessage) {
 }
 
 app.get("/", async (_, res) => {
+  return res.render("list", {
+    title: "list",
+    newListItems: [],
+  });
   res.render("list", await getListPageData(defaultListKey, day));
 });
 
@@ -81,6 +85,10 @@ app.post("/lists", async (req, res) => {
 });
 
 app.get("/:customListName", async (req, res) => {
+  return res.render("list", {
+    title: "list",
+    newListItems: [],
+  });
   const customListName = req.params.customListName;
   res.render(
     "list",
