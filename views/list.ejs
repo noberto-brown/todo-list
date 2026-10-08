@@ -1,28 +1,64 @@
 <%- include('./includes/header'); -%>
 
 <div class="nav-bar">
-  <div class="menu-action box">
-    <img src="/icons/menu.svg" alt="Menu" class="menu-icon" />
-  </div>
-  
+  <button
+    class="menu-action box"
+    id="menu-toggle"
+    type="button"
+    aria-controls="list-menu"
+    aria-expanded="false"
+    aria-label="Open list menu"
+  >
+    <img src="/icons/menu.svg" alt="" class="menu-icon" id="menu-icon" />
+  </button>
+
   <div class="box" id="heading">
     <h1><%= title %></h1>
   </div>
 </div>
 
-<div class="box" style="margin: 50px auto;">
+<aside class="list-menu" id="list-menu" aria-hidden="true">
+  <div class="list-menu-header">
+    <p class="menu-eyebrow">Your lists</p>
+    <p class="menu-count"><%= availableLists.length %></p>
+  </div>
+
+  <nav class="list-links" aria-label="Available lists">
+    <% availableLists.forEach((list) => { %>
+      <a
+        class="list-link <%= list.key === listKey ? 'is-active' : '' %>"
+        href="<%= list.href %>"
+        <%= list.key === listKey ? 'aria-current="page"' : '' %>
+      >
+        <span><%= list.name %></span>
+        <span class="list-link-arrow" aria-hidden="true">&#8594;</span>
+      </a>
+    <% }); %>
+  </nav>
+
+  <div class="list-menu-footer">
+    <button class="new-list-button" id="new-list-button" type="button">
+      <span aria-hidden="true">+</span>
+      <span>New list</span>
+    </button>
+  </div>
+</aside>
+
+<div class="menu-backdrop" id="menu-backdrop" data-menu-close></div>
+
+<main class="box todo-box">
   <% newListItems.forEach((item)=>{ %>
   <form action="/del" method="post">
     <div class="item">
       <input
+        class="item-checkbox"
         type="checkbox"
         name="box"
         value="<%= item %>"
-        onchange="this.form.submit()"
       />
       <p><%= item %></p>
     </div>
-    <input type="hidden" name="listName" value="<%= title %>" />
+    <input type="hidden" name="listName" value="<%= listKey %>" />
   </form>
   <% }); %>
 
@@ -34,8 +70,40 @@
       autocomplete="off"
     />
 
-    <button type="submit" name="button" value="<%= title %>">+</button>
+    <input type="hidden" name="listName" value="<%= listKey %>" />
+    <button type="submit" aria-label="Add item">+</button>
   </form>
+</main>
+
+<div
+  class="dialog-backdrop"
+  id="new-list-dialog"
+  data-open-on-load="<%= errorMessage ? 'true' : 'false' %>"
+  hidden
+>
+  <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <button class="dialog-close" id="dialog-close" type="button" aria-label="Close new list dialog">&times;</button>
+    <p class="menu-eyebrow">Start fresh</p>
+    <h2 id="dialog-title">Create a new list</h2>
+    <p class="dialog-description">Give your next collection a name.</p>
+    <form action="/lists" method="post" id="new-list-form">
+      <label for="list-name">List name</label>
+      <input
+        id="list-name"
+        name="listName"
+        type="text"
+        maxlength="60"
+        required
+        autocomplete="off"
+        placeholder="e.g. Weekend plans"
+      />
+      <p class="form-error" id="list-name-error" role="alert"><%= errorMessage || '' %></p>
+      <div class="dialog-actions">
+        <button class="button-secondary" id="dialog-cancel" type="button">Cancel</button>
+        <button class="button-primary" type="submit">Create list</button>
+      </div>
+    </form>
+  </section>
 </div>
 
 <%- include('./includes/footer'); -%>

@@ -106,3 +106,4 @@ dist
 # Editor directories and files
 .vscode/
 .devkit/
+.github/

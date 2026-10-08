@@ -43,13 +43,16 @@ A simple Express and EJS to-do list application backed by Upstash Redis. The app
 
 - Add a task by entering it in the input field and selecting `+`.
 - Mark a task as complete by selecting its checkbox. This removes it from the list.
-- Create or access a custom list by visiting a path such as [http://localhost:3000/work](http://localhost:3000/work).
+- Open the menu button beside the list title to navigate between persisted lists.
+- Select `New list` in the menu, enter a name, and select `Create list` to open it.
+- A new empty list is not persisted until its first task is added. List names are preserved and safely URL-encoded when navigating.
 - Tasks are stored in Redis, so they persist across application restarts.
 
 ## Available Commands
 
 ```bash
-npm start    # Start the app with Nodemon
+npm start    # Start the app
+npm run dev  # Start the app with Node watch mode
 npm test     # Placeholder script; automated tests are not currently configured
 ```
 
