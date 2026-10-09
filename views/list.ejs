@@ -46,33 +46,39 @@
 
 <div class="menu-backdrop" id="menu-backdrop" data-menu-close></div>
 
-<main class="box todo-box">
-  <% newListItems.forEach((item)=>{ %>
-  <form action="/del" method="post">
-    <div class="item">
+<main>
+  <div class="box todo-box">
+    <% newListItems.forEach((item)=>{ %>
+    <form action="/del" method="post">
+      <div class="item">
+        <input
+          class="item-checkbox"
+          type="checkbox"
+          name="box"
+          value="<%= item %>"
+        />
+        <p><%= item %></p>
+      </div>
+      <input type="hidden" name="listName" value="<%= listKey %>" />
+    </form>
+    <% }); %>
+  
+    <form class="item" action="/" method="post">
       <input
-        class="item-checkbox"
-        type="checkbox"
-        name="box"
-        value="<%= item %>"
+        type="text"
+        name="newItem"
+        placeholder="New Item"
+        autocomplete="off"
       />
-      <p><%= item %></p>
-    </div>
-    <input type="hidden" name="listName" value="<%= listKey %>" />
-  </form>
-  <% }); %>
+  
+      <input type="hidden" name="listName" value="<%= listKey %>" />
+      <button type="submit" aria-label="Add item">+</button>
+    </form>
+  </div>
 
-  <form class="item" action="/" method="post">
-    <input
-      type="text"
-      name="newItem"
-      placeholder="New Item"
-      autocomplete="off"
-    />
-
-    <input type="hidden" name="listName" value="<%= listKey %>" />
-    <button type="submit" aria-label="Add item">+</button>
-  </form>
+  <div id="footer">
+      © Copyright <span id="year">2022</span>.
+  </div>
 </main>
 
 <div
