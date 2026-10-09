@@ -1,11 +1,10 @@
 # ToDoList
 
-A simple Express and EJS to-do list application backed by Upstash Redis. The app provides a default daily list and supports additional custom lists through the URL.
+A simple Express and EJS to-do list application backed by a local JSON file while the UI is being developed. The app provides a default daily list and supports additional custom lists through the URL.
 
 ## Requirements
 
 - Node.js 18 or newer
-- An Upstash Redis database
 
 ## Getting Started
 
@@ -22,22 +21,13 @@ A simple Express and EJS to-do list application backed by Upstash Redis. The app
    npm install
    ```
 
-3. Create a `.env` file in the project root and add your Upstash Redis credentials:
-
-   ```env
-   UPSTASH_REDIS_URL=https://your-database-url.upstash.io
-   UPSTASH_REDIS_TOKEN=your-upstash-redis-token
-   ```
-
-   Keep this file private and do not commit it to version control.
-
-4. Start the application:
+3. Start the application:
 
    ```bash
    npm start
    ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Usage
 
@@ -46,7 +36,7 @@ A simple Express and EJS to-do list application backed by Upstash Redis. The app
 - Open the menu button beside the list title to navigate between persisted lists.
 - Select `New list` in the menu, enter a name, and select `Create list` to open it.
 - A new empty list is not persisted until its first task is added. List names are preserved and safely URL-encoded when navigating.
-- Tasks are stored in Redis, so they persist across application restarts.
+- Tasks are stored in `data/todo-lists.json`, so they persist across application restarts without making Upstash requests.
 
 ## Available Commands
 
@@ -60,15 +50,11 @@ npm test     # Placeholder script; automated tests are not currently configured
 
 ```text
 app.js                  Express server and routes
+local-store.js          Local JSON persistence adapter
+data/                   Local todo data used during UI development
 dates.js                Date helper functions
 public/                 CSS and client-side JavaScript
 views/                  EJS templates
 package.json            Dependencies and npm scripts
 ```
 
-## Environment Variables
-
-| Variable | Description |
-| --- | --- |
-| `UPSTASH_REDIS_URL` | URL of the Upstash Redis database |
-| `UPSTASH_REDIS_TOKEN` | Authentication token for the Upstash Redis database |
