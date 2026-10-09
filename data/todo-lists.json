@@ -8,19 +8,12 @@
   "10": [
     "1"
   ],
-  "12": [
-    "rr"
-  ],
+  "12": [],
   "todoList": [
-    "1",
-    "2",
-    "3",
-    "4",
     "Why does it break when I delete an item",
     "The menu Icon disappears when I add an item",
     "another",
-    "another item",
-    "5"
+    "another item"
   ],
   "smoke-list": [],
   "Work": [],
@@ -35,5 +28,8 @@
   ],
   "Fgxx": [
     "Vsgd"
+  ],
+  "Weekend plans": [
+    "Go to the beach"
   ]
 }

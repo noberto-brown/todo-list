@@ -279,17 +279,24 @@ input[type="text"]:focus {
 }
 
 .list-menu-title {
-  color: var(--ink);
+  color: var(--accent);
   font-size: 1.35rem;
   line-height: 1.1;
 }
 
-.menu-eyebrow {
-  color: var(--accent-dark);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.list-menu-close {
+  display: grid;
+  flex: 0 0 38px;
+  place-items: center;
+  min-height: 38px;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.list-menu-close:hover,
+.list-menu-close:focus-visible {
+  background: #f3eefb;
 }
 
 .list-links {
@@ -367,14 +374,15 @@ input[type="text"]:focus {
 
 .dialog-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 38px;
-  min-height: 38px;
+  top: 18px;
+  right: 16px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  padding: 0;
   background: transparent;
   color: var(--ink);
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .dialog-close:hover,
@@ -487,6 +495,10 @@ input[type="text"]:focus {
   }
 
   .menu-action {
+    display: none;
+  }
+
+  .list-menu-close {
     display: none;
   }
 

@@ -13,7 +13,7 @@ const yearElement = document.getElementById("year");
 const menuToggle = document.getElementById("menu-toggle");
 const menu = document.getElementById("list-menu");
 const menuBackdrop = document.getElementById("menu-backdrop");
-const menuIcon = document.getElementById("menu-icon");
+const menuClose = document.getElementById("list-menu-close");
 const newListButton = document.getElementById("new-list-button");
 const dialog = document.getElementById("new-list-dialog");
 const dialogClose = document.getElementById("dialog-close");
@@ -44,7 +44,6 @@ if (menuToggle && menu && menuBackdrop) {
     menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute("aria-label", isOpen ? "Close list menu" : "Open list menu");
     menu.setAttribute("aria-hidden", String(!isOpen && !isDesktop));
-    menuIcon.src = isOpen ? "/icons/x.svg" : "/icons/menu.svg";
     document.body.classList.toggle("menu-open", isOpen);
 
     if (isOpen) {
@@ -71,7 +70,6 @@ if (menuToggle && menu && menuBackdrop) {
       menuBackdrop.style.removeProperty("visibility");
       menuToggle.setAttribute("aria-expanded", "false");
       menuToggle.setAttribute("aria-label", "Open list menu");
-      menuIcon.src = "/icons/menu.svg";
       document.body.classList.remove("menu-open");
       menu.setAttribute("aria-hidden", "true");
     }
@@ -85,6 +83,7 @@ if (menuToggle && menu && menuBackdrop) {
   menuToggle.addEventListener("click", () => {
     setMenuState(menuToggle.getAttribute("aria-expanded") !== "true");
   });
+  menuClose.addEventListener("click", closeMenu);
   menuBackdrop.addEventListener("click", closeMenu);
   document.querySelectorAll("[data-menu-close]").forEach((element) => {
     element.addEventListener("click", closeMenu);

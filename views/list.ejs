@@ -21,6 +21,14 @@
   <aside class="list-menu" id="list-menu" aria-hidden="true">
     <div class="list-menu-header">
       <h2 class="list-menu-title">Your lists</h2>
+      <button
+        class="list-menu-close"
+        id="list-menu-close"
+        type="button"
+        aria-label="Close list menu"
+      >
+        <img src="/icons/x.svg" alt="" class="menu-icon" />
+      </button>
     </div>
 
     <nav class="list-links" aria-label="Available lists">
@@ -89,7 +97,6 @@
 >
   <section class="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
     <button class="dialog-close" id="dialog-close" type="button" aria-label="Close new list dialog">&times;</button>
-    <p class="menu-eyebrow">Start fresh</p>
     <h2 id="dialog-title">Create a new list</h2>
     <p class="dialog-description">Give your next collection a name.</p>
     <form action="/lists" method="post" id="new-list-form">
