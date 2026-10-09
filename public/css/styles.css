@@ -123,6 +123,8 @@ input:focus-visible {
 }
 
 .todo-box {
+  display: flex;
+  flex-direction: column;
   height: max(160px, min(500px, calc(100vh - 190px)));
   max-height: max(160px, min(500px, calc(100vh - 190px)));
   margin-top: 30px;
@@ -172,10 +174,17 @@ main{
 }
 
 form.item {
+  position: sticky;
+  flex: 0 0 auto;
+  z-index: 1;
+  bottom: 0;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 8px 12px 8px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  margin-top: auto;
 }
 
 form.item button {
