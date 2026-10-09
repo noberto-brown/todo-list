@@ -5,14 +5,13 @@
     "and another one",
     "Another another one"
   ],
-  "10": [
-    "1"
+  "10": [],
+  "12": [
+    "new",
+    "another one"
   ],
-  "12": [],
   "todoList": [
-    "Why does it break when I delete an item",
     "The menu Icon disappears when I add an item",
-    "another",
     "another item"
   ],
   "smoke-list": [],
@@ -23,12 +22,8 @@
   "asdfadf": [
     "gs"
   ],
-  "Gsg": [
-    "4scs"
-  ],
-  "Fgxx": [
-    "Vsgd"
-  ],
+  "Gsg": [],
+  "Fgxx": [],
   "Weekend plans": [
     "Go to the beach"
   ]

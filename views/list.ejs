@@ -70,6 +70,13 @@
       </form>
       <% }); %>
 
+      <% if (newListItems.length === 0) { %>
+      <div class="empty-state" role="status">
+        <img src="/icons/square-dashed-plus.svg" alt="" />
+        <p>Add an item to see it here</p>
+      </div>
+      <% } %>
+
       <form class="item" action="/" method="post">
         <input
           type="text"
