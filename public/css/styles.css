@@ -240,6 +240,12 @@ input[type="text"]:focus {
   border-bottom: 1px solid var(--line);
 }
 
+.list-menu-title {
+  color: var(--ink);
+  font-size: 1.35rem;
+  line-height: 1.1;
+}
+
 .menu-eyebrow {
   color: var(--accent-dark);
   font-size: 0.75rem;
@@ -421,7 +427,11 @@ input[type="text"]:focus {
 }
 
 footer {
-  padding-top: 22px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 22px 0;
   text-align: center;
   font-size: 0.85rem;
 }
@@ -438,6 +448,57 @@ footer {
 
   .todo-box {
     margin-top: 56px;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .nav-bar,
+  .todo-box {
+    width: min(100%, 520px);
+    margin-right: auto;
+    margin-left: max(240px, calc(50% - 260px));
+  }
+
+  .menu-action {
+    display: none;
+  }
+
+  .list-menu {
+    top: 48px;
+    right: auto;
+    bottom: auto;
+    left: max(16px, calc(50% - 544px));
+    display: flex;
+    width: 216px;
+    max-height: calc(100vh - 96px);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    transform: none;
+  }
+
+  .menu-backdrop {
+    display: none;
+  }
+}
+
+@media (min-width: 1000px) {
+  body {
+    padding-left: 16px;
+  }
+
+  .nav-bar,
+  .todo-box {
+    margin-left: max(340px, calc(50% - 260px));
+  }
+
+  .list-menu {
+    width: 260px;
+    left: max(16px, calc(50% - 544px));
   }
 }
 

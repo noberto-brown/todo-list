@@ -32,6 +32,7 @@ document.querySelectorAll(".item-checkbox").forEach((checkbox) => {
 });
 
 if (menuToggle && menu && menuBackdrop) {
+  const desktopMenuQuery = window.matchMedia("(min-width: 768px)");
   const menuTimeline = gsap.timeline({ paused: true });
   menuTimeline
     .set(menu, { display: "flex" })
@@ -39,9 +40,10 @@ if (menuToggle && menu && menuBackdrop) {
     .to(menuBackdrop, { autoAlpha: 1, duration: prefersReducedMotion ? 0 : 0.25 }, "<");
 
   const setMenuState = (isOpen) => {
+    const isDesktop = desktopMenuQuery.matches;
     menuToggle.setAttribute("aria-expanded", String(isOpen));
     menuToggle.setAttribute("aria-label", isOpen ? "Close list menu" : "Open list menu");
-    menu.setAttribute("aria-hidden", String(!isOpen));
+    menu.setAttribute("aria-hidden", String(!isOpen && !isDesktop));
     menuIcon.src = isOpen ? "/icons/x.svg" : "/icons/menu.svg";
     document.body.classList.toggle("menu-open", isOpen);
 
@@ -51,6 +53,32 @@ if (menuToggle && menu && menuBackdrop) {
       menuTimeline.reverse();
     }
   };
+
+  const syncMenuForViewport = () => {
+    if (desktopMenuQuery.matches) {
+      menuTimeline.pause(0);
+      menu.style.display = "flex";
+      menu.style.transform = "none";
+      menuBackdrop.style.opacity = "0";
+      menuBackdrop.style.visibility = "hidden";
+      menu.setAttribute("aria-hidden", "false");
+      document.body.classList.remove("menu-open");
+    } else {
+      menuTimeline.pause(0);
+      menu.style.removeProperty("display");
+      menu.style.removeProperty("transform");
+      menuBackdrop.style.removeProperty("opacity");
+      menuBackdrop.style.removeProperty("visibility");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open list menu");
+      menuIcon.src = "/icons/menu.svg";
+      document.body.classList.remove("menu-open");
+      menu.setAttribute("aria-hidden", "true");
+    }
+  };
+
+  syncMenuForViewport();
+  desktopMenuQuery.addEventListener("change", syncMenuForViewport);
 
   const closeMenu = () => setMenuState(false);
 
