@@ -65,6 +65,11 @@ h2 {
   margin-left: auto;
 }
 
+.content-layout {
+  width: min(100%, 520px);
+  margin: 0 auto;
+}
+
 .nav-bar {
   display: flex;
   gap: 10px;
@@ -118,6 +123,7 @@ input:focus-visible {
 }
 
 .todo-box {
+  height: max(160px, min(500px, calc(100vh - 190px)));
   max-height: max(160px, min(500px, calc(100vh - 190px)));
   margin-top: 30px;
   overflow-y: auto;
@@ -459,11 +465,20 @@ input[type="text"]:focus {
     padding-left: 16px;
   }
 
-  .nav-bar,
-  .todo-box {
+  .nav-bar {
     width: min(100%, 520px);
     margin-right: auto;
-    margin-left: max(240px, calc(50% - 260px));
+    margin-left: calc(max(16px, calc(50% - 544px)) + 224px);
+  }
+
+  .content-layout {
+    display: grid;
+    grid-template-columns: 216px minmax(0, 1fr);
+    gap: 8px;
+    width: min(100%, 744px);
+    margin-right: auto;
+    margin-left: max(16px, calc(50% - 544px));
+    align-items: start;
   }
 
   .menu-action {
@@ -471,16 +486,19 @@ input[type="text"]:focus {
   }
 
   .list-menu {
-    top: 48px;
+    position: relative;
+    top: auto;
     right: auto;
     bottom: auto;
-    left: max(16px, calc(50% - 544px));
+    left: auto;
     display: flex;
     width: 216px;
-    max-height: calc(100vh - 96px);
+    height: max(160px, min(500px, calc(100vh - 190px)));
+    max-height: none;
     border-radius: 8px;
     box-shadow: var(--shadow);
     transform: none;
+    margin-top: 30px;
   }
 
   .menu-backdrop {
@@ -493,14 +511,19 @@ input[type="text"]:focus {
     padding-left: 16px;
   }
 
-  .nav-bar,
-  .todo-box {
-    margin-left: max(340px, calc(50% - 260px));
+  .nav-bar {
+    margin-left: calc(max(16px, calc(50% - 544px)) + 284px);
   }
 
   .list-menu {
     width: 260px;
-    left: max(16px, calc(50% - 544px));
+  }
+
+  .content-layout {
+    grid-template-columns: 260px minmax(0, 520px);
+    gap: 24px;
+    width: min(100%, 804px);
+    margin-left: max(16px, calc(50% - 544px));
   }
 }
 

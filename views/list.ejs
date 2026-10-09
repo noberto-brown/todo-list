@@ -17,69 +17,71 @@
   </div>
 </div>
 
-<aside class="list-menu" id="list-menu" aria-hidden="true">
-  <div class="list-menu-header">
-    <h2 class="list-menu-title">Your lists</h2>
-    <p class="menu-count"><%= availableLists.length %></p>
-  </div>
+<div class="content-layout">
+  <aside class="list-menu" id="list-menu" aria-hidden="true">
+    <div class="list-menu-header">
+      <h2 class="list-menu-title">Your lists</h2>
+      <p class="menu-count"><%= availableLists.length %></p>
+    </div>
 
-  <nav class="list-links" aria-label="Available lists">
-    <% availableLists.forEach((list) => { %>
-      <a
-        class="list-link <%= list.key === listKey ? 'is-active' : '' %>"
-        href="<%= list.href %>"
-        <%= list.key === listKey ? 'aria-current="page"' : '' %>
-      >
-        <span><%= list.name %></span>
-        <span class="list-link-arrow" aria-hidden="true">&#8594;</span>
-      </a>
-    <% }); %>
-  </nav>
+    <nav class="list-links" aria-label="Available lists">
+      <% availableLists.forEach((list) => { %>
+        <a
+          class="list-link <%= list.key === listKey ? 'is-active' : '' %>"
+          href="<%= list.href %>"
+          <%= list.key === listKey ? 'aria-current="page"' : '' %>
+        >
+          <span><%= list.name %></span>
+          <span class="list-link-arrow" aria-hidden="true">&#8594;</span>
+        </a>
+      <% }); %>
+    </nav>
 
-  <div class="list-menu-footer">
-    <button class="new-list-button" id="new-list-button" type="button">
-      <span aria-hidden="true">+</span>
-      <span>New list</span>
-    </button>
-  </div>
-</aside>
+    <div class="list-menu-footer">
+      <button class="new-list-button" id="new-list-button" type="button">
+        <span aria-hidden="true">+</span>
+        <span>New list</span>
+      </button>
+    </div>
+  </aside>
 
-<div class="menu-backdrop" id="menu-backdrop" data-menu-close></div>
+  <div class="menu-backdrop" id="menu-backdrop" data-menu-close></div>
 
-<main>
-  <div class="box todo-box">
-    <% newListItems.forEach((item)=>{ %>
-    <form action="/del" method="post">
-      <div class="item">
+  <main>
+    <div class="box todo-box">
+      <% newListItems.forEach((item)=>{ %>
+      <form action="/del" method="post">
+        <div class="item">
+          <input
+            class="item-checkbox"
+            type="checkbox"
+            name="box"
+            value="<%= item %>"
+          />
+          <p><%= item %></p>
+        </div>
+        <input type="hidden" name="listName" value="<%= listKey %>" />
+      </form>
+      <% }); %>
+
+      <form class="item" action="/" method="post">
         <input
-          class="item-checkbox"
-          type="checkbox"
-          name="box"
-          value="<%= item %>"
+          type="text"
+          name="newItem"
+          placeholder="New Item"
+          autocomplete="off"
         />
-        <p><%= item %></p>
-      </div>
-      <input type="hidden" name="listName" value="<%= listKey %>" />
-    </form>
-    <% }); %>
-  
-    <form class="item" action="/" method="post">
-      <input
-        type="text"
-        name="newItem"
-        placeholder="New Item"
-        autocomplete="off"
-      />
-  
-      <input type="hidden" name="listName" value="<%= listKey %>" />
-      <button type="submit" aria-label="Add item">+</button>
-    </form>
-  </div>
 
-  <div id="footer">
-      © Copyright <span id="year">2022</span>.
-  </div>
-</main>
+        <input type="hidden" name="listName" value="<%= listKey %>" />
+        <button type="submit" aria-label="Add item">+</button>
+      </form>
+    </div>
+
+    <div id="footer">
+        © Copyright <span id="year">2022</span>.
+    </div>
+  </main>
+</div>
 
 <div
   class="dialog-backdrop"
