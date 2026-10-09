@@ -61,8 +61,12 @@ npm test     # Placeholder script; automated tests are not currently configured
 ```text
 app.js                  Express server and routes
 dates.js                Date helper functions
-public/                 CSS and client-side JavaScript
-views/                  EJS templates
+public/css/             Application styles
+public/js/              Client-side menu, dialog, and form behavior
+public/icons/           Menu and empty-list icons
+public/images/          Background image assets
+views/list.ejs          Todo list page template
+views/includes/         Shared page partials
 package.json            Dependencies and npm scripts
 ```
 
