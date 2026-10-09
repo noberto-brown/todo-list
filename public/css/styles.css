@@ -131,6 +131,19 @@ input:focus-visible {
   overflow-y: auto;
 }
 
+.todo-box,
+.list-links {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.todo-box::-webkit-scrollbar,
+.list-links::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
 .item {
   display: flex;
   align-items: center;
@@ -279,18 +292,6 @@ input[type="text"]:focus {
   text-transform: uppercase;
 }
 
-.menu-count {
-  display: grid;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #f0eafb;
-  color: var(--accent-dark);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
 .list-links {
   display: grid;
   gap: 6px;
@@ -316,11 +317,6 @@ input[type="text"]:focus {
 .list-link.is-active {
   background: #f3eefb;
   color: var(--accent-dark);
-}
-
-.list-link-arrow {
-  flex: 0 0 auto;
-  font-size: 1.2rem;
 }
 
 .list-menu-footer {

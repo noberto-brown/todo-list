@@ -21,7 +21,6 @@
   <aside class="list-menu" id="list-menu" aria-hidden="true">
     <div class="list-menu-header">
       <h2 class="list-menu-title">Your lists</h2>
-      <p class="menu-count"><%= availableLists.length %></p>
     </div>
 
     <nav class="list-links" aria-label="Available lists">
@@ -32,7 +31,6 @@
           <%= list.key === listKey ? 'aria-current="page"' : '' %>
         >
           <span><%= list.name %></span>
-          <span class="list-link-arrow" aria-hidden="true">&#8594;</span>
         </a>
       <% }); %>
     </nav>
