@@ -1,7 +1,8 @@
 require("dotenv").config();
 const express = require("express");
+// const redis = require("redis");
+const Redis = require("@upstash/redis").Redis;
 const date = require(__dirname + "/dates.js");
-const localStore = require(__dirname + "/local-store.js");
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
@@ -11,28 +12,43 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 
+// const client = redis.createClient({ url: "redis://@localhost:6379/1" });
+const client = new Redis({
+  url: process.env.UPSTASH_REDIS_URL,
+  token: process.env.UPSTASH_REDIS_TOKEN,
+});
+
 const day = date.getDay();
 const defaultListKey = "todoList";
 
 async function getAvailableLists() {
   const lists = [{ name: day, key: defaultListKey, href: "/" }];
+  let cursor = "0";
 
-  (await localStore.getListKeys())
-    .filter((key) => key !== defaultListKey)
-    .forEach((key) => {
-      lists.push({
-        name: key,
-        key,
-        href: `/${encodeURIComponent(key)}`,
-      });
+  do {
+    const [nextCursor, keys] = await client.scan(cursor, {
+      count: 100,
+      type: "list",
     });
+
+    cursor = String(nextCursor);
+    keys
+      .filter((key) => key !== defaultListKey)
+      .forEach((key) => {
+        lists.push({
+          name: key,
+          key,
+          href: `/${encodeURIComponent(key)}`,
+        });
+      });
+  } while (cursor !== "0");
 
   return lists;
 }
 
 async function getListPageData(listKey, title, errorMessage) {
   const [newListItems, availableLists] = await Promise.all([
-    localStore.getItems(listKey),
+    client.lrange(listKey, 0, -1),
     getAvailableLists(),
   ]);
 
@@ -75,7 +91,7 @@ app.get("/:customListName", async (req, res) => {
 app.post("/del", async (req, res) => {
   const listName = req.body.listName || defaultListKey;
 
-  await localStore.removeItem(listName, req.body.box);
+  await client.lrem(listName, 0, req.body.box);
 
   if (listName === defaultListKey) {
     return res.redirect("/");
@@ -89,7 +105,7 @@ app.post("/", async (req, res) => {
   const listName = req.body.listName || defaultListKey;
 
   if (item) {
-    await localStore.addItem(listName, item);
+    await client.rpush(listName, item);
   }
 
   if (listName === defaultListKey) {
