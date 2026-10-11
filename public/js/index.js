@@ -1,14 +1,3 @@
-const getYear = () => {
-  const today = new Date();
-
-  const options = {
-    year: "numeric",
-  };
-
-  const year = today.toLocaleDateString("en-US", options);
-  return year;
-};
-
 const yearElement = document.getElementById("year");
 const menuToggle = document.getElementById("menu-toggle");
 const menu = document.getElementById("list-menu");
@@ -22,6 +11,17 @@ const listNameInput = document.getElementById("list-name");
 const newListForm = document.getElementById("new-list-form");
 const listNameError = document.getElementById("list-name-error");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const getYear = () => {
+  const today = new Date();
+
+  const options = {
+    year: "numeric",
+  };
+
+  const year = today.toLocaleDateString("en-US", options);
+  return year;
+};
 
 if (yearElement) {
   yearElement.textContent = getYear();
